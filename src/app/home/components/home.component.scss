@@ -1,0 +1,17 @@
+@use 'styles.scss' as *;
+.home__container {
+  @include centerMeRow;
+  align-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  .home__categories-container {
+    width: 300px;
+  }
+  .home__products-container {
+    @include centerMeColumn;
+    margin: 5px 0;
+    gap: 5px;
+    width: calc(100% - 300px);
+  }
+}

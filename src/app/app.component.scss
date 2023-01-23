@@ -1,0 +1,31 @@
+@use 'styles.scss' as *;
+
+.main-app {
+  @include centerMeColumn;
+  width: 100%;
+  &__title {
+    color: $tertiary-color;
+    padding: 3px;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  &__nav-container {
+    background-color: $septenary-color;
+    width: 100%;
+  }
+  &__nav {
+    @include centerMeRow;
+    justify-content: space-around;
+    gap: 10px;
+    &-link {
+      padding: 5px;
+    }
+  }
+  &__content-container {
+    margin: 0;
+    width: 100%;
+  }
+  &__nav-link-active {
+    background-color: $primary-color;
+  }
+}

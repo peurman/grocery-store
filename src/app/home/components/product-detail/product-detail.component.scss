@@ -1,0 +1,22 @@
+@use 'styles.scss' as *;
+
+.product__container {
+  @include centerMeColumn;
+  border: 1px solid $read-only-color;
+  border-radius: 8px;
+  background-color: $quinary-color;
+  padding: 10px;
+  gap: 5px;
+  .product__name {
+    color: $septenary-color;
+    font: 1.2rem;
+  }
+  .product__description,
+  .product__likes {
+    font-size: 1rem;
+    color: $read-only-color;
+  }
+  button {
+    @include buttonFormat;
+  }
+}

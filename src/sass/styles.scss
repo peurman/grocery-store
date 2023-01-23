@@ -1,0 +1,46 @@
+@forward './base/variables';
+@forward './base/mixins';
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../assets/fonts/helvetica-neu.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'kanitregular';
+  src: url('../assets/fonts/kanit-regular-webfont.woff2') format('woff2'),
+    url('../assets/fonts/kanit-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font: 300 18px/1.4 'kanitregular';
+  min-height: 100vh;
+  margin: 0;
+  color: #632f2f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #654a4a;
+  background: linear-gradient(180deg, #654a4a 0%, #654a4abb 100%);
+  overflow-y: scroll;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  &:link {
+    color: rgb(37, 110, 131);
+  }
+  &:visited {
+    color: rgb(72, 38, 96);
+  }
+  &:hover {
+    color: rgb(78, 174, 166);
+  }
+  &:active,
+  &:visited:active {
+    color: darkturquoise;
+  }
+}

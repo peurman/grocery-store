@@ -1,0 +1,11 @@
+<div class="categories__container" *ngIf="categories">
+  <div class="categories__title">Filter by category:</div>
+  <div *ngFor="let item of categories">
+    <a
+      class="categories__nav-link"
+      [routerLink]="[item.id]"
+      routerLinkActive="categories__nav-link-active"
+      >{{ item.name }}</a
+    >
+  </div>
+</div>

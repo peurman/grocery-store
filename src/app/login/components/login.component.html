@@ -1,0 +1,65 @@
+<div class="main-form-container">
+  <h2 class="main-form__title">Login</h2>
+  <form
+    (ngSubmit)="handleSubmit(form.value, form.valid)"
+    class="main-form"
+    #form="ngForm"
+    novalidate>
+    <div class="main-form__label-input">
+      <label for="name">Email: </label>
+      <div>
+        <input
+          type="email"
+          name="email"
+          #email="ngModel"
+          required
+          [(ngModel)]="bodyInfo.data.email"
+          pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          [class]="
+            email.invalid && (email.dirty || email.touched)
+              ? 'error-border'
+              : ''
+          " />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div
+            *ngIf="email.errors?.['required']"
+            class="main-form__required-error">
+            Email is required
+          </div>
+          <div
+            *ngIf="email.errors?.['pattern']"
+            class="main-form__required-error">
+            You must enter an email format
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-form__label-input">
+      <label for="name">Password: </label>
+      <div>
+        <input
+          type="password"
+          name="password"
+          #password="ngModel"
+          required
+          [(ngModel)]="bodyInfo.data.password"
+          [class]="
+            password.invalid && (password.dirty || password.touched)
+              ? 'error-border'
+              : ''
+          " />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div
+            *ngIf="password.errors?.['required']"
+            class="main-form__required-error">
+            Password is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="submit" [disabled]="form.invalid">LOGIN</button>
+    </div>
+    <!-- <pre> {{ form.value | json }}</pre> -->
+  </form>
+</div>
