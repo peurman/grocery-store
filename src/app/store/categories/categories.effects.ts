@@ -1,31 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as loginActions from './login.actions';
+import * as categoriesActions from './categories.actions';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { LoginService } from 'src/app/login/services/login.service';
+import { CategoryService } from 'src/app/core/services/category.service';
 
 @Injectable()
-export class LoginEffects {
+export class CategoriesEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private loginService: LoginService
+    private categoryService: CategoryService
   ) {}
 
-  login$ = createEffect(() =>
+  getCategories$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loginActions.loginAction),
-      exhaustMap(action =>
-        this.loginService.postLogin(action.data).pipe(
+      ofType(categoriesActions.getCategoriesAction),
+      exhaustMap(() =>
+        this.categoryService.getCategories().pipe(
           map(response => {
-            localStorage.setItem('user.token', response.data.token);
-            return loginActions.loginSuccessAction({ data: response });
+            return categoriesActions.getCategoriesSuccessAction({
+              data: response,
+            });
           }),
           catchError(error =>
             of(
-              loginActions.loginErrorAction({
+              categoriesActions.getCategoriesErrorAction({
                 message: 'Incorrect user or password',
               })
             )
@@ -35,10 +36,10 @@ export class LoginEffects {
     )
   );
 
-  loginSuccess$ = createEffect(
+  getCategoriesSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(loginActions.loginSuccessAction),
+        ofType(categoriesActions.getCategoriesSuccessAction),
         tap(_ => {
           this.router.navigateByUrl('categories');
         })

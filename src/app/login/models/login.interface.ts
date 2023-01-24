@@ -3,10 +3,12 @@ export interface LoginRequestInterface {
 }
 
 export interface LoginResponseInterface {
-  token: string;
-  user: {
-    id: number;
-    email: string;
-    name: string;
+  data: {
+    token: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+    };
   };
 }

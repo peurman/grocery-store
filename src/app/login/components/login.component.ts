@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loginAction } from '../../store/login/login.actions';
 
 import { LoginRequestInterface } from '../models/login.interface';
 import { LoginService } from '../services/login.service';
@@ -9,7 +11,7 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private loginService: LoginService) {}
+  constructor(private store: Store) {}
 
   bodyInfo: LoginRequestInterface = {
     data: {
@@ -24,10 +26,7 @@ export class LoginComponent {
   handleSubmit(value: object, isValid: boolean | null) {
     if (isValid) {
       this.bodyInfo.data = Object(value);
+      this.store.dispatch(loginAction({ data: this.bodyInfo }));
     }
-    this.loginService.postLogin(this.bodyInfo).subscribe({
-      next: res => console.log(res),
-      error: err => console.log(err),
-    });
   }
 }

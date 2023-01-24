@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LoginResponseInterface } from '../models/login.interface';
 import { LoginRequestInterface } from '../models/login.interface';
 
@@ -18,10 +18,12 @@ export class LoginService {
 
   // Login
   postLogin(data: LoginRequestInterface): Observable<LoginResponseInterface> {
-    return this.http.post<LoginResponseInterface>(
-      `${BASE_API}/api/v1/users/login`,
-      data,
-      this.options
-    );
+    return this.http
+      .post<LoginResponseInterface>(
+        `${BASE_API}/api/v1/users/login`,
+        data,
+        this.options
+      )
+      .pipe(tap(res => console.log(res)));
   }
 }

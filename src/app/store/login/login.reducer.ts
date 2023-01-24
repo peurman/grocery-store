@@ -8,7 +8,7 @@ export const initialLoginState: LoginState = {
   isError: null,
 };
 
-const loginReducerInternal = createReducer(
+export const loginReducerInternal = createReducer(
   initialLoginState,
   on(loginActions.loginAction, state => {
     return {
