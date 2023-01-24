@@ -1,11 +1,8 @@
 <div class="categories__container" *ngIf="categories$ | async as categories">
-  <div class="categories__title">Filter by category:</div>
-  <div *ngFor="let item of categories">
-    <a
-      class="categories__nav-link"
-      [routerLink]="[item.id]"
-      routerLinkActive="categories__nav-link-active"
-      >{{ item.name }}</a
-    >
-  </div>
+  <select (change)="onSelect($event)">
+    <option value="" hidden default>Select a category</option>
+    <option *ngFor="let item of categories" [value]="item.id">
+      {{ item.name }}
+    </option>
+  </select>
 </div>

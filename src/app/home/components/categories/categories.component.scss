@@ -3,20 +3,14 @@
 .categories__container {
   @include centerMeColumn;
   gap: 15px;
-  padding: 15px;
-  background-color: $senary-color;
-  .categories__title {
-    padding: 10px;
-    color: $secondary-color;
-  }
-
-  .categories__nav-link {
-    border: 1px solid $read-only-color;
+  padding: 10px;
+  select {
+    @include inputsShadow;
+    padding: 5px;
+    width: 250px;
+    border: none;
     border-radius: 5px;
-    padding: 3px 8px;
-    width: 300px;
-  }
-  .categories__nav-link-active {
-    background-color: $primary-color;
+    font-size: 1rem;
+    font-family: inherit;
   }
 }

@@ -8,4 +8,8 @@ import { Product } from '../../models/products.interface';
 })
 export class ProductDetailComponent {
   @Input() product!: Product;
+
+  onClick(event: Event) {
+    console.log((event.target as HTMLInputElement)?.value);
+  }
 }

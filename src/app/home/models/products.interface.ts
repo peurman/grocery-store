@@ -1,6 +1,10 @@
-export interface ProductInterface {
+export interface ProductsInterface {
   data: Product[];
   meta: Meta;
+}
+export interface ProductInterface {
+  data: Product;
+  meta: object;
 }
 
 export interface Product {

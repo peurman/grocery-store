@@ -6,8 +6,11 @@ import { CategoryService } from 'src/app/core/services/category.service';
 
 import { Category } from 'src/app/core/models/category.interface';
 import { CategoryInterface } from 'src/app/core/models/category.interface';
+
 import { getCategoriesAction } from 'src/app/store/categories/categories.actions';
+
 import * as fromCategories from '../../../store/categories/categories.selectors';
+import { getProductsByCategoryAction } from 'src/app/store/products/products.actions';
 
 @Component({
   selector: 'app-categories',
@@ -25,5 +28,9 @@ export class CategoriesComponent implements OnInit {
     this.categories$ = this.store.pipe(
       select(fromCategories.selectCategoriesData)
     );
+  }
+  onSelect(event: Event) {
+    const value = parseInt((event.target as HTMLInputElement).value);
+    this.store.dispatch(getProductsByCategoryAction({ id: value }));
   }
 }

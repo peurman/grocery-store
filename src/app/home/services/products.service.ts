@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { ProductsInterface } from '../models/products.interface';
 import { ProductInterface } from '../models/products.interface';
 
 import { Observable } from 'rxjs';
@@ -19,15 +20,15 @@ export class ProductsService {
   // .set('Authorization', 'Bearer ' + this.token);
   options = { headers: this.headers };
 
-  getAllProducts(): Observable<ProductInterface> {
-    return this.http.get<ProductInterface>(
-      `${BASE_API}/api/v1/products?include=category,master`,
+  getAllProducts(): Observable<ProductsInterface> {
+    return this.http.get<ProductsInterface>(
+      `${BASE_API}/api/v1/products?include=category,master&&[page][size]=0`,
       this.options
     );
   }
 
-  getProductsByCategory(id: number): Observable<ProductInterface> {
-    return this.http.get<ProductInterface>(
+  getProductsByCategory(id: number): Observable<ProductsInterface> {
+    return this.http.get<ProductsInterface>(
       `${BASE_API}/api/v1/products?include=category,master&[filter][category_id_eq]=${id}`,
       this.options
     );

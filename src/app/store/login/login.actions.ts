@@ -14,3 +14,4 @@ export const loginErrorAction = createAction(
   '[Login] LoginErrorAction',
   props<{ message: string }>()
 );
+export const logoutAction = createAction('[Login] Logout');

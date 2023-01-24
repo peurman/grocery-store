@@ -4,32 +4,31 @@
     <nav class="main-app__nav">
       <a
         class="main-app__nav-link"
-        routerLink="/categories"
+        routerLink="/home"
         routerLinkActive="main-app__nav-link-active"
         >Home</a
       >
-      <!-- <a
-        class="main-app__nav-link"
-        *ngFor="let item of categories$ | async"
-        [routerLink]="['category', item.id]"
-        routerLinkActive="main-app__nav-link-active"
-        >{{ item.name }}</a
-      >
+      <div>
+        <app-categories
+          *ngIf="token"
+          class="home__categories-container"></app-categories>
+      </div>
       <a
+        *ngIf="token"
         class="main-app__nav-link"
         routerLink="/cart"
         routerLinkActive="main-app__nav-link-active"
         >My Cart</a
-      >-->
+      >
       <a
+        *ngIf="!token"
         class="main-app__nav-link"
         routerLink="/login"
         routerLinkActive="main-app__nav-link-active"
         >Login</a
       >
+      <a href="#" (click)="logout()" *ngIf="token">Logout</a>
     </nav>
   </div>
-  <div class="main-app__content-container">
-    <router-outlet></router-outlet>
-  </div>
 </main>
+<router-outlet></router-outlet>

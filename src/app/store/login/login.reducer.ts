@@ -30,6 +30,14 @@ export const loginReducerInternal = createReducer(
       isLoading: false,
       isError: message,
     };
+  }),
+  on(loginActions.logoutAction, state => {
+    return {
+      ...state,
+      loginData: null,
+      isLoading: false,
+      isError: null,
+    };
   })
 );
 export function loginReducer(state: LoginState | undefined, action: Action) {

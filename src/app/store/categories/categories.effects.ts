@@ -41,7 +41,7 @@ export class CategoriesEffects {
       this.actions$.pipe(
         ofType(categoriesActions.getCategoriesSuccessAction),
         tap(_ => {
-          this.router.navigateByUrl('categories');
+          this.router.navigateByUrl('home');
         })
       ),
     { dispatch: false }
