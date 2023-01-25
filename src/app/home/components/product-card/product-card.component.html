@@ -1,0 +1,23 @@
+<div class="product__container">
+  <label class="product__name">{{ product.name }}</label>
+  <label class="product__description">
+    {{ product.description }} - ( {{ product.likes_count }} likes )</label
+  >
+  <button (click)="onClick(product.slug)">View details</button>
+  <div class="product__like-cart-container">
+    <button>
+      <img
+        class="product__img-heart"
+        src="../../../../assets/like.png"
+        alt="like"
+        title="Like this product" />
+    </button>
+    <button>
+      <img
+        class="product__img-cart"
+        src="../../../../assets/cart.png"
+        alt="cart"
+        title="Add to cart" />
+    </button>
+  </div>
+</div>

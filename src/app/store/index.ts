@@ -17,6 +17,11 @@ import { productReducer } from './product/product.reducer';
 import { ProductState } from './product/product.state';
 import * as fromProductSelectors from './product/product.selectors';
 
+import { CartEffects } from './cart/cart.effects';
+import { cartReducer } from './cart/cart.reducer';
+import { CartState } from './cart/cart.state';
+import * as fromCartSelectors from './cart/cart.selectors';
+
 import { routerReducer } from '@ngrx/router-store';
 import { RouterStateUrl } from './router/router.reducers';
 import * as fromRouterSelectors from './router/router.selectors';
@@ -26,6 +31,7 @@ export interface RootState {
   categories: CategoryState;
   products: ProductsState;
   product: ProductState;
+  cart: CartState;
   router: RouterStateUrl;
 }
 
@@ -34,6 +40,7 @@ export const appReducer = {
   categories: categoriesReducer,
   products: productsReducer,
   product: productReducer,
+  cart: cartReducer,
   router: routerReducer,
 };
 
@@ -42,6 +49,7 @@ export const appEffects = [
   CategoriesEffects,
   ProductsEffects,
   ProductEffects,
+  CartEffects,
 ];
 export const appSelectors = [
   fromCategoriesSelectors.selectCategoriesData,
@@ -53,6 +61,9 @@ export const appSelectors = [
   fromProductSelectors.selectProductData,
   fromProductSelectors.selectIsError,
   fromProductSelectors.selectIsLoading,
+  fromCartSelectors.selectCartData,
+  fromCartSelectors.selectIsError,
+  fromCartSelectors.selectIsLoading,
   fromRouterSelectors.selectUrl,
   fromRouterSelectors.selectParams,
   fromRouterSelectors.selectQueryParams,

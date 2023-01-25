@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/components/home.component';
 
 import { LoggedGuard } from './core/guards/logged.guard';
 import { UnLoggedGuard } from './core/guards/unlogged.guard';
@@ -10,7 +8,6 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    // component: AppComponent,
     redirectTo: 'home',
   },
   {

@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CategoryService } from 'src/app/core/services/category.service';
-
 import { Category } from 'src/app/core/models/category.interface';
-import { CategoryInterface } from 'src/app/core/models/category.interface';
 
 import { getCategoriesAction } from 'src/app/store/categories/categories.actions';
 
@@ -20,7 +17,6 @@ import { getProductsByCategoryAction } from 'src/app/store/products/products.act
 export class CategoriesComponent implements OnInit {
   constructor(private store: Store) {}
 
-  categories: Category[] = [];
   categories$!: Observable<Category[] | undefined>;
 
   ngOnInit(): void {

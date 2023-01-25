@@ -15,8 +15,8 @@ export class LoginComponent {
 
   bodyInfo: LoginRequestInterface = {
     data: {
-      email: '',
-      password: '',
+      email: 'trainee4@example.com',
+      password: 'Trainee$4',
     },
   };
 

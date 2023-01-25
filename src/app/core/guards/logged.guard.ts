@@ -16,7 +16,6 @@ export class LoggedGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const token = localStorage.getItem('user.token');
-    console.log(token);
     if (token) {
       // TODO Get User
       return true;

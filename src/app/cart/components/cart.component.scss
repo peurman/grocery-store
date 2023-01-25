@@ -1,0 +1,10 @@
+@use 'styles.scss' as *;
+
+.main-cart-container {
+  @include centerMeColumn;
+  .main-cart__title {
+    color: $tertiary-color;
+    letter-spacing: 1px;
+    margin: 10px 0;
+  }
+}

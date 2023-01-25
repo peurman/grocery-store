@@ -1,10 +1,44 @@
-<div class="product__container">
-  <label class="product__name">{{ product.name }}</label>
-  <label class="product__description"
-    >Description: {{ product.description }}</label
-  >
-  <label class="product__likes">Likes: {{ product.likes_count }}</label>
-  <button (click)="onClick($event)">View details</button>
-  <button>Add to cart</button>
-  <button>Add like</button>
+<div class="product__container" *ngIf="product$ | async as product">
+  <div class="product__name-price-container">
+    <label class="product__name">{{ product.name }}</label>
+    <label class="product__price"> {{ product.master.price | currency }}</label>
+  </div>
+  <div class="product__image-rest-info-container">
+    <div class="product__image-container">
+      <img src="../../../../assets/product.png" alt="product image" />
+    </div>
+    <div class="product__rest-info-container">
+      <label class="product_category">
+        Category: <b>{{ product.category.name }}</b></label
+      >
+      <label class="product__description">
+        Description: <b>{{ product.description }} </b></label
+      >
+
+      <label class="product__stock">
+        Stock: <b>{{ product.master.stock }}</b></label
+      >
+      <label class="product__likes">
+        <b>{{ product.likes_count }}</b> likes
+      </label>
+    </div>
+  </div>
+  <div class="product__like-cart-container">
+    <button>
+      <img
+        class="product__img-heart"
+        src="../../../../assets/like.png"
+        alt="like"
+        title="Like this product" />
+    </button>
+    <button>
+      <img
+        class="product__img-cart"
+        src="../../../../assets/cart.png"
+        alt="cart"
+        title="Add to cart" />
+    </button>
+  </div>
 </div>
+
+<!-- Show name, description, category, like, dislike and price. If possible, show the image. -->

@@ -18,12 +18,10 @@ export class LoginService {
 
   // Login
   postLogin(data: LoginRequestInterface): Observable<LoginResponseInterface> {
-    return this.http
-      .post<LoginResponseInterface>(
-        `${BASE_API}/api/v1/users/login`,
-        data,
-        this.options
-      )
-      .pipe(tap(res => console.log(res)));
+    return this.http.post<LoginResponseInterface>(
+      `${BASE_API}/api/v1/users/login`,
+      data,
+      this.options
+    );
   }
 }
