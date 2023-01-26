@@ -41,7 +41,7 @@ export class CartEffects {
       this.actions$.pipe(
         ofType(cartActions.getCartSuccessAction),
         tap(_ => {
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('cart');
         })
       ),
     { dispatch: false }
