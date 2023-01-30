@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginAction } from '../../store/login/login.actions';
 
@@ -10,6 +11,7 @@ import { LoginRequestInterface } from '../models/login.interface';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  @ViewChild('loginForm', { static: true }) loginForm!: NgForm;
   constructor(private store: Store) {}
 
   bodyInfo: LoginRequestInterface = {

@@ -1,5 +1,5 @@
 {
-  "name": "week9",
+  "name": "week10",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,6 +23,7 @@
     "@ngrx/router-store": "^15.1.0",
     "@ngrx/store": "^15.1.0",
     "@ngrx/store-devtools": "^15.1.0",
+    "@ngx-pwa/local-storage": "^15.0.0",
     "ngrx-store-freeze": "^0.2.4",
     "ngrx-store-localstorage": "^15.0.0",
     "rxjs": "~7.5.0",

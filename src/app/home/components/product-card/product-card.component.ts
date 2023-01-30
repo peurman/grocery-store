@@ -11,7 +11,7 @@ import { Product } from '../../models/products.interface';
 })
 export class ProductCardComponent {
   @Input() product!: Product;
-  constructor(private router: Router, private store: Store) {}
+  constructor(public router: Router, private store: Store) {}
 
   onClick(value: string) {
     this.store.dispatch(getProductAction({ slug: value }));

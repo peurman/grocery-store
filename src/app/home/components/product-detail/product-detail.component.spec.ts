@@ -1,23 +1,60 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ProductDetailComponent } from './product-detail.component';
+import { select } from '@ngrx/store';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import * as fromProduct from '../../../store/product/product.selectors';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-// import { ProductDetailComponent } from './product-detail.component';
+describe('ProductDetailComponent', () => {
+  let component: ProductDetailComponent;
+  let fixture: ComponentFixture<ProductDetailComponent>;
+  let store: MockStore;
+  let activatedRoute: ActivatedRoute;
 
-// describe('ProductDetailComponent', () => {
-//   let component: ProductDetailComponent;
-//   let fixture: ComponentFixture<ProductDetailComponent>;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [ProductDetailComponent],
+      providers: [
+        provideMockStore(),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ slug: 'product-1' }),
+          },
+        },
+      ],
+    }).compileComponents();
+  });
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       declarations: [ ProductDetailComponent ]
-//     })
-//     .compileComponents();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductDetailComponent);
+    component = fixture.componentInstance;
+    store = TestBed.inject(MockStore);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+    fixture.detectChanges();
+  });
 
-//     fixture = TestBed.createComponent(ProductDetailComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should select product data', async () => {
+    const selectedProductData = await store.pipe(
+      select(fromProduct.selectProductData)
+    );
+    expect(component.product$).toEqual(selectedProductData);
+  });
+  // it('should select product data', done => {
+  //   component.product$.subscribe(product => {
+  //     store
+  //       .pipe(select(fromProduct.selectProductData))
+  //       .subscribe(selectedProductData => {
+  //         expect(product).toEqual(selectedProductData);
+  //         done();
+  //       });
+  //   });
+  // });
+});

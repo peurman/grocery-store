@@ -10,7 +10,7 @@ import * as fromLogin from './store/login/login.selector';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'week9';
+  title = 'week10';
   token = '';
   constructor(private store: Store) {}
 
