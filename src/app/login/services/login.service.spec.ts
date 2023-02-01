@@ -26,7 +26,11 @@ describe('LoginService', () => {
     httpMock.verify();
   });
 
-  it('should make a post request to the login endpoint', () => {
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should make a post request to the API with the right data', () => {
     const loginRequest: LoginRequestInterface = {
       data: {
         email: 'test@example.com',
@@ -43,7 +47,7 @@ describe('LoginService', () => {
     expect(req.request.body).toEqual(loginRequest);
   });
 
-  it('should return a LoginResponseInterface', () => {
+  it('should return a response with login response interface', () => {
     const loginRequest: LoginRequestInterface = {
       data: {
         email: 'test@example.com',

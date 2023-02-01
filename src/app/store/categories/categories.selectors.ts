@@ -1,8 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+// import { RootState } from '..';
 
 import { CategoryState } from './categories.state';
 
 const selectCategoryState = createFeatureSelector<CategoryState>('categories');
+// const selectCategoryState = (state: RootState) => state.categories;
 
 export const selectCategoriesData = createSelector(
   selectCategoryState,

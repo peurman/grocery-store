@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { StoreModule, Store } from '@ngrx/store';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule, Store, select } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 // import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { mockCategoriesArray } from 'src/app/test/mock/mock-categories';
 
 import { CategoriesComponent } from './categories.component';
 import { Category } from 'src/app/core/models/category.interface';
@@ -16,9 +16,7 @@ import { selectCategoriesData } from 'src/app/store/categories/categories.select
 describe('CategoriesComponent', () => {
   let component: CategoriesComponent;
   let fixture: ComponentFixture<CategoriesComponent>;
-  let selectEl: DebugElement;
   let store: Store<{ categories: Category[] }>;
-  // const initialState = { categories: [] };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,7 +36,6 @@ describe('CategoriesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CategoriesComponent);
     component = fixture.componentInstance;
-    selectEl = fixture.debugElement.query(By.css('select'));
     fixture.detectChanges();
   });
 
@@ -51,20 +48,29 @@ describe('CategoriesComponent', () => {
   describe('ngOnInit', () => {
     it('should dispatch getCategoriesAction on ngOnInit', () => {
       fixture.detectChanges();
-
       expect(store.dispatch).toHaveBeenCalledWith(getCategoriesAction());
     });
-    // ! NOT WORKING -> <toHaveBeenCalled> : Expected a spy, but got Store...
-    it('should select categoriesData on ngOnInit', () => {
-      fixture.detectChanges();
-
-      component.ngOnInit();
-      // expect(store.select).toHaveBeenCalledWith(selectCategoriesData);
-      // expect(component.categories$).toBeDefined();
-      expect(
-        store.select<Category[] | undefined>(selectCategoriesData)
-      ).toHaveBeenCalled();
-    });
+    // // ! NOT WORKING -> <toHaveBeenCalled> : Expected a spy, but got Store...
+    // it('should select categoriesData on ngOnInit', () => {
+    //   spyOn(store, 'select').and.callThrough();
+    //   component.ngOnInit();
+    //   expect(component.categories$).toBeDefined();
+    //   expect(
+    //     store.select<Category[] | undefined>(selectCategoriesData)
+    //   ).toHaveBeenCalled();
+    // });
+    it('should select categories data', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        component.categories$.subscribe(categories => {
+          store
+            .pipe(select(selectCategoriesData))
+            .subscribe(selectCategoriesData => {
+              expect(categories).toEqual(selectCategoriesData);
+              // done();
+            });
+        });
+      });
+    }));
   });
   describe('onSelect function', () => {
     it('should dispatch getProductsByCategoryAction on onSelect', () => {
@@ -78,23 +84,30 @@ describe('CategoriesComponent', () => {
       );
     });
   });
-  // ! NOT WORKING -> Cannot read properties of null (reading 'queryAll')
+
   describe('template', () => {
-    it('should render categories in the select', async () => {
-      const categories: Category[] = [
-        { id: 1, slug: 'category-1', name: 'category 1' },
-        { id: 2, slug: 'category-2', name: 'category 2' },
-        { id: 3, slug: 'category-3', name: 'category 3' },
-      ];
+    it('should display a select element if categories are loaded', () => {
+      const categories: Category[] = mockCategoriesArray;
       component.categories$ = of(categories);
-      // await component.categories$;
       fixture.detectChanges();
-      const options = selectEl.queryAll(By.css('option'));
-      console.log(options);
-      expect(options.length).toBe(3); // 1 default + 3 categories
-      expect(options[1].nativeElement.textContent).toContain('category1');
-      expect(options[2].nativeElement.textContent).toContain('category2');
-      expect(options[3].nativeElement.textContent).toContain('category3');
+      const selectElement = fixture.debugElement.query(By.css('select'));
+      expect(selectElement).toBeTruthy();
+    });
+    it('should display options for each category', () => {
+      const categories: Category[] = mockCategoriesArray;
+      component.categories$ = of(categories);
+      fixture.detectChanges();
+      const optionElements = fixture.debugElement.queryAll(By.css('option'));
+      expect(optionElements.length).toBe(4); // 1 default + 3 options
+      expect(optionElements[1].nativeElement.textContent).toContain(
+        ' category 1'
+      );
+      expect(optionElements[2].nativeElement.textContent).toContain(
+        ' category 2'
+      );
+      expect(optionElements[3].nativeElement.textContent).toContain(
+        ' category 3'
+      );
     });
   });
 });

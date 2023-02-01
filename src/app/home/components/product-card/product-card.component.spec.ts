@@ -7,13 +7,12 @@ import { getProductAction } from 'src/app/store/product/product.actions';
 import { ProductCardComponent } from './product-card.component';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 
-import { Product } from '../../models/products.interface';
+import { mockProduct } from 'src/app/test/mock/mock.products';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
   let store: MockStore;
-  let product: Product;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -21,45 +20,17 @@ describe('ProductCardComponent', () => {
           { path: 'home/:slug', component: ProductDetailComponent },
           { path: '', redirectTo: 'home', pathMatch: 'full' },
         ]),
-        // StoreModule.forRoot({}),
       ],
       declarations: [ProductCardComponent],
       providers: [provideMockStore()],
     }).compileComponents();
+
     store = TestBed.inject(MockStore);
     spyOn(store, 'dispatch').and.callThrough();
+
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
-    product = {
-      id: 1,
-      name: 'product 1',
-      slug: 'product-1',
-      description: 'test description',
-      active: 1,
-      likes_count: 10,
-      likes_up_count: 2,
-      likes_down_count: 3,
-      published_at: new Date(),
-      master: {
-        id: 2,
-        sku: 'pete',
-        price: '25',
-        promotional_price: '20',
-        stock: 23,
-        weight: null,
-        height: null,
-        width: null,
-        depth: null,
-        is_master: 34,
-        position: 12,
-      },
-      category: {
-        id: 1,
-        slug: 'category-1',
-        name: 'category 1',
-      },
-    };
-    component.product = product;
+    component.product = mockProduct.data;
     fixture.detectChanges();
   }));
 
@@ -71,15 +42,18 @@ describe('ProductCardComponent', () => {
 
   describe('onClick', () => {
     it('should dispatch getProductAction when onClick is called', () => {
-      component.onClick(product.slug);
+      component.onClick(mockProduct.data.slug);
       expect(store.dispatch).toHaveBeenCalledWith(
-        getProductAction({ slug: product.slug })
+        getProductAction({ slug: mockProduct.data.slug })
       );
     });
     it('should navigate to /home/product-1 when onClick is called', () => {
       const navigateSpy = spyOn(component.router, 'navigate');
-      component.onClick(product.slug);
-      expect(navigateSpy).toHaveBeenCalledWith(['/home', product.slug]);
+      component.onClick(mockProduct.data.slug);
+      expect(navigateSpy).toHaveBeenCalledWith([
+        '/home',
+        mockProduct.data.slug,
+      ]);
     });
   });
   describe('template rendering', () => {
@@ -142,7 +116,7 @@ describe('ProductCardComponent', () => {
         '.product__description'
       );
       expect(productDescription.textContent).toEqual(
-        'test description - ( 10 likes )'
+        'description - ( 3 likes )'
       );
     });
   });

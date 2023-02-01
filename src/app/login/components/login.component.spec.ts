@@ -141,12 +141,6 @@ describe('LoginComponent', () => {
         passwordInput.value = 'myPassword';
         emailInput.dispatchEvent(new Event('input'));
         passwordInput.dispatchEvent(new Event('input'));
-        console.log(
-          'EMAIL: ',
-          emailInput.value,
-          ' - PASS: ',
-          passwordInput.value
-        );
         fixture.detectChanges();
         fixture.whenStable().then(() => {
           // console.log('BUTTON DISABLED final: ', submitButton.disabled);
